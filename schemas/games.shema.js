@@ -4,6 +4,7 @@ const id = Joi.number().integer()
 const name = Joi.string()
 const description = Joi.string()
 const image = Joi.string()
+const available = Joi.boolean()
 const gameDayId = Joi.array().items(Joi.number().integer())
 
 const createGameSchema = Joi.object({
@@ -11,6 +12,7 @@ const createGameSchema = Joi.object({
   name: name.required(),
   description: description.required(),
   image: image.required(),
+  available: available.required().default(true),
   gameDayId: gameDayId
 })
 

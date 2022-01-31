@@ -1,8 +1,8 @@
 const { Model, DataTypes, Sequelize } = require('sequelize')
 
-const GAME_TABLE = 'games'
+const SCHEDULE_TABLE = 'schedules'
 
-const GameSchema = {
+const ScheduleSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -14,39 +14,31 @@ const GameSchema = {
     type: DataTypes.STRING,
     unique: true
   },
-  description: {
+  time: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.DATE
   },
-  image: {
-    allowNull: false,
-    type: DataTypes.STRING
-  },
-  available: {
-    allowNull: false,
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-  },
-  createdAt: {
+  createAt: {
     allowNull: false,
     type: DataTypes.DATE,
     field: 'created_at',
     defaultValue: Sequelize.NOW
   }
 }
-class Game extends Model {
+
+class Schedule extends Model {
   static associate (models) {
-    this.hasMany(models.GameDay, { as: 'gameDays', foreignKey: 'gameDayId' })
+    this.hasMany(models.GameDay, { as: 'gameDay', foreignKey: 'scheduleId' })
   }
 
   static config (sequelize) {
     return {
       sequelize,
-      tableName: GAME_TABLE,
-      modelName: 'Game',
+      tableName: SCHEDULE_TABLE,
+      modelName: 'Schedule',
       timestamps: false
     }
   }
 }
 
-module.exports = { Game, GameSchema, GAME_TABLE }
+module.exports = { Schedule, ScheduleSchema, SCHEDULE_TABLE }

@@ -8,10 +8,10 @@ const role = Joi.string()
 
 const createUserSchema = Joi.object({
   id: id.optional(),
-  nickName: nickName.required(),
+  nickName: nickName.required().min(6),
   email: email.required(),
   password: password.required().min(8),
-  role: role.required()
+  role: role.required().default('user')
 })
 
 const getUserSchema = Joi.object({
