@@ -8,7 +8,6 @@ const gameId = Joi.number().integer()
 const scheduleId = Joi.number().integer()
 
 const createGameDaySchema = Joi.object({
-  id: id.optional(),
   name: name.required(),
   shortName: shortName.required(),
   state: state.required(),

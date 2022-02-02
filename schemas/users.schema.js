@@ -7,7 +7,6 @@ const password = Joi.string()
 const role = Joi.string()
 
 const createUserSchema = Joi.object({
-  id: id.optional(),
   nickName: nickName.required().min(6),
   email: email.required(),
   password: password.required().min(8),
@@ -15,7 +14,7 @@ const createUserSchema = Joi.object({
 })
 
 const getUserSchema = Joi.object({
-  id: id.required()
+  nickName: nickName.required()
 })
 
 module.exports = { createUserSchema, getUserSchema }

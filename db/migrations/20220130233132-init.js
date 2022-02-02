@@ -73,6 +73,14 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: true
       },
+      platforms: {
+        allowNull: false,
+        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.STRING)
+      },
+      keywords: {
+        allowNull: true,
+        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.STRING)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,

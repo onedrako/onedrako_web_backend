@@ -27,6 +27,14 @@ const GameSchema = {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
+  platforms: {
+    allowNull: false,
+    type: DataTypes.ARRAY(DataTypes.STRING)
+  },
+  keywords: {
+    allowNull: true,
+    type: DataTypes.ARRAY(DataTypes.STRING)
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

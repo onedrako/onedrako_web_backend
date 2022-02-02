@@ -6,7 +6,6 @@ const time = Joi.any()
 const gameDayId = Joi.array().items(Joi.number().integer())
 
 const createScheduleSchema = Joi.object({
-  id: id.required(),
   name: name.required(),
   time: time.required(),
   gameDayId: gameDayId

@@ -4,7 +4,7 @@ const { Op } = require('sequelize')
 
 class GameService {
   async find () {
-    const response = await models.User.findAll()
+    const response = await models.Game.findAll()
     if (!response) {
       throw boom.notFound('There are not games created in the database')
     }
@@ -12,10 +12,10 @@ class GameService {
   }
 
   async findByName (name) {
-    const game = await models.User.findAll({
+    const game = await models.Game.findAll({
       where: {
         name: {
-          [Op.like]: `%${name}%`
+          [Op.iLike]: `%${name}%`
         }
       }
     })
@@ -26,28 +26,26 @@ class GameService {
     return game
   }
 
+  async findById (id) {
+    const game = await models.Game.findByPk(id)
+    if (!game) {
+      throw boom.notFound('Game not found in database')
+    }
+    return game
+  }
+
   async findByAvailability () {
-    const availableGames = await models.User.findAll({
-      where: {
-        available: true
-      }
+    const availableGames = await models.Game.findAll({
+      order: [['available', 'DESC']]
     })
-    const unavailableGames = await models.User.findAll({
-      where: {
-        available: false
-      }
-    })
-
-    const allGames = { ...availableGames, ...unavailableGames }
-
-    if (!allGames) {
+    if (!availableGames) {
       throw boom.notFound('There are not games created in the database')
     }
-    return allGames
+    return availableGames
   }
 
   async create (data) {
-    const response = await models.User.create(data)
+    const response = await models.Game.create(data)
     return response
   }
 
