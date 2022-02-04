@@ -2,23 +2,23 @@ const Joi = require('joi')
 
 const id = Joi.number().integer()
 const name = Joi.string()
-const time = Joi.any()
-const gameDayId = Joi.array().items(Joi.number().integer())
+const initialTime = Joi.any()
+const endTime = Joi.any()
 
 const createScheduleSchema = Joi.object({
   name: name.required(),
-  time: time.required(),
-  gameDayId: gameDayId
+  initialTime: initialTime.required(),
+  endTime: endTime.required()
 })
 
 const updateScheduleSchema = Joi.object({
-  name: name.required(),
-  time: time.required(),
-  gameDayId: gameDayId
+  name: name,
+  initialTime: initialTime,
+  endTime: endTime
 })
 
 const getScheduleSchema = Joi.object({
-  id: id.required()
+  name: name.required()
 })
 
-module.exports({ createScheduleSchema, updateScheduleSchema, getScheduleSchema })
+module.exports = ({ createScheduleSchema, updateScheduleSchema, getScheduleSchema })

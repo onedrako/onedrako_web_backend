@@ -14,9 +14,13 @@ const ScheduleSchema = {
     type: DataTypes.STRING,
     unique: true
   },
-  time: {
+  initialTime: {
     allowNull: false,
-    type: DataTypes.DATE
+    type: DataTypes.TIME
+  },
+  endTime: {
+    allowNull: false,
+    type: DataTypes.TIME
   },
   createAt: {
     allowNull: false,

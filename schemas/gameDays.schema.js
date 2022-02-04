@@ -23,7 +23,11 @@ const updateGameDaySchema = Joi.object({
 })
 
 const getGameDaySchema = Joi.object({
+  name: name.required()
+})
+
+const getGameDaySchemaById = Joi.object({
   id: id.required()
 })
 
-module.exports = { createGameDaySchema, updateGameDaySchema, getGameDaySchema }
+module.exports = { createGameDaySchema, updateGameDaySchema, getGameDaySchema, getGameDaySchemaById }

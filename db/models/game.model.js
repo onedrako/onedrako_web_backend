@@ -44,7 +44,7 @@ const GameSchema = {
 }
 class Game extends Model {
   static associate (models) {
-    this.hasMany(models.GameDay, { as: 'gameDays', foreignKey: 'gameDayId' })
+    this.hasMany(models.GameDay, { as: 'gameDays', foreignKey: 'gameId' })
   }
 
   static config (sequelize) {

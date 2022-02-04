@@ -5,6 +5,7 @@ const nickName = Joi.string()
 const email = Joi.string()
 const password = Joi.string()
 const role = Joi.string()
+const recoveryToken = Joi.string()
 
 const createUserSchema = Joi.object({
   nickName: nickName.required().min(6),
@@ -17,4 +18,11 @@ const getUserSchema = Joi.object({
   nickName: nickName.required()
 })
 
-module.exports = { createUserSchema, getUserSchema }
+const updateUserSchema = Joi.object({
+  nickName: nickName,
+  email: email,
+  password: password,
+  recoveryToken: recoveryToken
+})
+
+module.exports = { createUserSchema, getUserSchema, updateUserSchema }

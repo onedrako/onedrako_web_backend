@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom')
 const { models } = require('../libs/sequelize')
+const { Op } = require('sequelize')
 
 class ScheduleService {
   async find () {
@@ -12,7 +13,11 @@ class ScheduleService {
 
   async findBySchedule (name) {
     const schedule = await models.Schedule.findOne({
-      where: { name }
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`
+        }
+      }
     })
     if (!schedule) {
       throw boom.notFound('Schedule not found')
@@ -27,7 +32,11 @@ class ScheduleService {
 
   async update (name, changes) {
     const schedule = await models.Schedule.findOne({
-      where: { name }
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`
+        }
+      }
     })
     if (!schedule) {
       throw boom.notFound('Schedule not found')
@@ -38,7 +47,11 @@ class ScheduleService {
 
   async delete (name) {
     const schedule = await models.Schedule.findOne({
-      where: { name }
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`
+        }
+      }
     })
     if (!schedule) {
       throw boom.notFound('Schedule not found')

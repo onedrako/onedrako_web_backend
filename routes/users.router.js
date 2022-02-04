@@ -1,13 +1,19 @@
 const express = require('express')
 
 const UserService = require('../services/user.service')
+
+const { checkAdminRole, checkAdminRoleForCreatingAdmin } = require('../middlewares/checkRole.handler')
 const validatorHandler = require('../middlewares/validator.handler')
+const passport = require('passport')
+
 const { createUserSchema, getUserSchema } = require('../schemas/users.schema')
 
 const router = express.Router()
 const service = new UserService()
 
 router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  checkAdminRole,
   async (req, res, next) => {
     try {
       const user = await service.find(req.query)
@@ -19,6 +25,8 @@ router.get('/',
 )
 
 router.get('/user/:nickName',
+  passport.authenticate('jwt', { session: false }),
+  checkAdminRole,
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -32,6 +40,7 @@ router.get('/user/:nickName',
 )
 
 router.post('/',
+  checkAdminRoleForCreatingAdmin,
   validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {

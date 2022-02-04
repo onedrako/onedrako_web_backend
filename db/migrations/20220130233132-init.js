@@ -34,6 +34,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         defaultValue: 'user'
       },
+      recoveryToken: {
+        allowNull: true,
+        type: Sequelize.DataTypes.STRING
+      },
       createAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
@@ -101,9 +105,13 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         unique: true
       },
-      time: {
+      initialTime: {
         allowNull: false,
-        type: Sequelize.DataTypes.DATE
+        type: Sequelize.DataTypes.TIME
+      },
+      endTime: {
+        allowNull: false,
+        type: Sequelize.DataTypes.TIME
       },
       createAt: {
         allowNull: false,

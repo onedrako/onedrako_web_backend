@@ -29,6 +29,10 @@ const UserSchema = {
     type: DataTypes.STRING,
     defaultValue: 'user'
   },
+  recoveryToken: {
+    allowNull: true,
+    type: DataTypes.STRING
+  },
   createAt: {
     allowNull: false,
     type: DataTypes.DATE,

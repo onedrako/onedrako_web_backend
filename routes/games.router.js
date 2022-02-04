@@ -1,5 +1,7 @@
 const express = require('express')
 const validatorHandler = require('../middlewares/validator.handler')
+const { checkAdminRole } = require('../middlewares/checkRole.handler')
+const passport = require('passport')
 
 const GameService = require('./../services/game.service')
 
@@ -39,6 +41,8 @@ router.get('/all',
   })
 
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
+  checkAdminRole,
   validatorHandler(createGameSchema, 'body'),
   async (req, res, next) => {
     try {
@@ -50,6 +54,8 @@ router.post('/',
   })
 
 router.patch('/:id',
+  passport.authenticate('jwt', { session: false }),
+  checkAdminRole,
   validatorHandler(getGameSchemaById, 'params'),
   validatorHandler(updateGameSchema, 'body'),
   async (req, res, next) => {
@@ -80,6 +86,9 @@ router.patch('/:id',
 )
 
 router.delete('/:id',
+  passport.authenticate('jwt', { session: false }),
+
+  checkAdminRole,
   validatorHandler(getGameSchemaById, 'params'),
   async (req, res, next) => {
     try {

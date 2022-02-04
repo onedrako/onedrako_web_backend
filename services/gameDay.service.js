@@ -1,18 +1,23 @@
 const boom = require('@hapi/boom')
 const { models } = require('../libs/sequelize')
+const { Op } = require('sequelize')
 
 class GameDayService {
   async find () {
     const response = await models.GameDay.findAll()
     if (!response) {
-      throw boom.notFound('There are game days created in the database')
+      throw boom.notFound('There are not game days created in the database')
     }
     return response
   }
 
   async findByName (name) {
     const gameDay = await models.GameDay.findOne({
-      where: { name }
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`
+        }
+      }
     })
 
     if (!gameDay) {
@@ -21,37 +26,39 @@ class GameDayService {
     return gameDay
   }
 
+  async findById (id) {
+    const model = await models.GameDay.findByPk(id)
+    if (!model) {
+      throw boom.notFound('Game day not found in database')
+    }
+    return model
+  }
+
   async create (data) {
     const response = await models.GameDay.create(data)
     return response
   }
 
-  async update (day, changes) {
-    const gameDay = await this.findOne({
-      where: { day }
-    })
-    if (!gameDay) {
-      throw boom.notFound(` ${day} was not found in database`)
-    }
-    const response = await gameDay.update(changes)
-    return response
+  async update (id, changes) {
+    const model = await models.GameDay.findBy(id)
+    const rta = await model.update(changes)
+    return rta
   }
 
-  async delete (day) {
+  async delete (id, day) {
+    console.log(day)
     if (
-      day === 'Lunes' |
-      day === 'Martes' |
-      day === 'Miercoles' |
-      day === 'Jueves' |
-      day === 'Viernes' |
-      day === 'Sabado' |
+      day === 'Lunes' ||
+      day === 'Martes' ||
+      day === 'Miércoles' ||
+      day === 'Jueves' ||
+      day === 'Viernes' ||
+      day === 'Sábado' ||
       day === 'Domingo') {
       throw boom.badRequest('You can not delete a day of the week')
     }
-    const gameDay = await this.findOne({
-      where: { day }
-    })
-    const response = await gameDay.destroy()
+    const model = await models.GameDay.findByPk(id)
+    const response = await model.destroy()
     return response
   }
 }
