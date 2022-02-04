@@ -12,35 +12,22 @@ const checkAdminRole = (req, res, next) => {
 }
 
 const checkAdminRoleForCreatingAdmin = async (req, res, next) => {
-  if (req.body.role !== 'admin') {
-    next()
-  } else {
-    if (!req.headers.authorization) {
-      next(boom.unauthorized('You are not authorized'))
+  const role = req.body.role
+  try {
+    if (role !== 'admin') {
+      next()
     } else {
       const tokenFromHeader = req.headers.authorization
-
       const token = tokenFromHeader.split(' ')[1]
+      const payload = JWT.verify(token, config.jwtSecret)
 
-      const verifyToken = (token, secret) => {
-        return JWT.verify(token, secret)
-      }
-      try {
-        const payload = verifyToken(token, config.jwtSecret)
-        if (!payload) {
-          next(boom.unauthorized('You are not authorized'))
-        } else {
-          console.log(payload)
-          if (payload.role === 'admin') {
-            next()
-          } else {
-            next(boom.unauthorized('You are not authorized'))
-          }
-        }
-      } catch (error) {
+      if (payload.role !== 'admin') {
         next(boom.unauthorized('You are not authorized'))
       }
+      next()
     }
+  } catch (error) {
+    next(boom.unauthorized('You are not authorized'))
   }
 }
 
