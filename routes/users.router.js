@@ -26,13 +26,25 @@ router.get('/',
 
 router.get('/user/:nickName',
   passport.authenticate('jwt', { session: false }),
-  checkAdminRole,
   validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
       const { nickName } = req.params
       const user = await service.findByNickName(nickName)
       res.json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
+
+router.get('/profile',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    try {
+      const user = req.user.sub
+      const profile = await service.findById(user)
+      res.json(profile)
     } catch (error) {
       next(error)
     }

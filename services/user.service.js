@@ -29,6 +29,16 @@ class UserService {
     return user
   }
 
+  async findById (id) {
+    const user = await models.User.findOne({
+      where: { id }
+    })
+    if (!user) {
+      throw boom.notFound('User not found')
+    }
+    return user
+  }
+
   async create (data) {
     const hash = await bcrypt.hash(data.password, 10)
     const response = await models.User.create({

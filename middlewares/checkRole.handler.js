@@ -13,8 +13,9 @@ const checkAdminRole = (req, res, next) => {
 
 const checkAdminRoleForCreatingAdmin = async (req, res, next) => {
   const role = req.body.role
+  const apiKey = req.headers['api'] // eslint-disable-line
   try {
-    if (role !== 'admin') {
+    if (role !== 'admin' || apiKey === config.apiKey) {
       next()
     } else {
       const tokenFromHeader = req.headers.authorization

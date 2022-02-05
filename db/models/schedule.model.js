@@ -32,7 +32,7 @@ const ScheduleSchema = {
 
 class Schedule extends Model {
   static associate (models) {
-    this.hasMany(models.GameDay, { as: 'gameDay', foreignKey: 'scheduleId' })
+    this.hasMany(models.GameDay, { as: 'gameDays', foreignKey: 'scheduleId' })
   }
 
   static config (sequelize) {

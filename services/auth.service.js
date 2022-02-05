@@ -51,7 +51,7 @@ class AuthService {
       from: config.smtpEmail,
       to: `${user.email}`,
       subject: 'Recovery password',
-      html: `<b> Recovery password link: ${link}`
+      html: `<b> Recovery password link: ${link} </b>`
     }
     const rta = await this.sendMail(mail)
     return rta
@@ -60,12 +60,13 @@ class AuthService {
   async changePassword (token, newPassword) {
     try {
       const payload = jwt.verify(token, config.jwtSecret)
-      const user = await service.findOne(payload.sub)
+      const user = await service.findById(payload.sub)
       if (user.recoveryToken !== token) {
         throw boom.unauthorized('Token is not valid')
       }
       const hash = await bcrypt.hash(newPassword, 10)
       await service.update(user.id, { password: hash, recoveryToken: null })
+      return { message: 'Password changed successfully' }
     } catch (error) {
       throw boom.unauthorized('Token is not valid')
     }
