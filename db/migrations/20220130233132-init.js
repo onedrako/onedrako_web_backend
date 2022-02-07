@@ -138,9 +138,14 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         unique: true
       },
+      date: {
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE
+      },
       state: {
         allowNull: false,
-        type: Sequelize.DataTypes.BOOLEAN
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: true
       },
       createdAt: {
         allowNull: false,

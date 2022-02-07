@@ -6,12 +6,14 @@ const shortName = Joi.string()
 const state = Joi.boolean()
 const gameId = Joi.number().integer()
 const scheduleId = Joi.number().integer()
+const date = Joi.date()
 
 const createGameDaySchema = Joi.object({
   name: name.required(),
   shortName: shortName.required(),
-  state: state.required(),
+  state: state.required().default(true),
   gameId: gameId.required(),
+  date: date.required(),
   scheduleId: scheduleId
 })
 
@@ -19,6 +21,7 @@ const updateGameDaySchema = Joi.object({
   name: name,
   state: state,
   gameId: gameId,
+  date: date,
   scheduleId: scheduleId
 })
 

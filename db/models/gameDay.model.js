@@ -21,9 +21,14 @@ const GameDaySchema = {
     type: DataTypes.STRING,
     unique: true
   },
+  date: {
+    allowNull: false,
+    type: DataTypes.DATE
+  },
   state: {
     allowNull: false,
-    type: DataTypes.BOOLEAN
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
   },
   createdAt: {
     allowNull: false,
