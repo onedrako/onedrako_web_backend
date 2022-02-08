@@ -4,6 +4,9 @@ const { USER_TABLE } = require('./../models/user.model')
 const { GAME_DAY_TABLE } = require('./../models/gameDay.model')
 const { GAME_TABLE } = require('./../models/game.model')
 const { SCHEDULE_TABLE } = require('./../models/schedule.model')
+const { COUNTRY_TABLE } = require('./../models/country.model')
+const { PLATFORM_TABLE } = require('./../models/platform.model')
+const { GAME_PLATFORM_TABLE } = require('./../models/game-platform.model')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -176,6 +179,100 @@ module.exports = {
         onDelete: 'SET NULL'
       }
     })
+
+    await queryInterface.createTable(COUNTRY_TABLE, {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.DataTypes.INTEGER
+      },
+      name: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING,
+        unique: true
+      },
+      code: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING,
+        unique: true
+      },
+      flag: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING
+      },
+      scheduleId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.INTEGER,
+        field: 'schedule_id',
+        references: {
+          model: SCHEDULE_TABLE,
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+        field: 'created_at',
+        defaultValue: Sequelize.NOW
+      }
+    })
+
+    await queryInterface.createTable(PLATFORM_TABLE, {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.DataTypes.INTEGER
+      },
+      name: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING
+      },
+      img: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+        field: 'created_at',
+        defaultValue: Sequelize.NOW
+      }
+    })
+
+    await queryInterface.createTable(GAME_PLATFORM_TABLE, {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.DataTypes.INTEGER
+      },
+      gameId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: GAME_TABLE,
+          key: 'id'
+        }
+      },
+      platformId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: PLATFORM_TABLE,
+          key: 'id'
+        }
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DataTypes.DATE,
+        field: 'created_at',
+        defaultValue: Sequelize.NOW
+      }
+    })
   },
 
   down: async (queryInterface) => {
@@ -183,5 +280,8 @@ module.exports = {
     await queryInterface.dropTable(GAME_DAY_TABLE)
     await queryInterface.dropTable(GAME_TABLE)
     await queryInterface.dropTable(SCHEDULE_TABLE)
+    await queryInterface.dropTable(COUNTRY_TABLE)
+    await queryInterface.dropTable(PLATFORM_TABLE)
+    await queryInterface.dropTable(GAME_PLATFORM_TABLE)
   }
 }

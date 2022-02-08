@@ -30,6 +30,10 @@ const GameDaySchema = {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
+  sponsor: {
+    allowNull: true,
+    type: DataTypes.STRING
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

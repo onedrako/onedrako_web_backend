@@ -18,7 +18,7 @@ class GameService {
           [Op.iLike]: `%${name}%`
         }
       },
-      include: ['gameDays']
+      include: ['gameDays', 'platforms']
     })
 
     if (!game) {
