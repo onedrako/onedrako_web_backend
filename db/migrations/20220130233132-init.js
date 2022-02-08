@@ -150,6 +150,10 @@ module.exports = {
         type: Sequelize.DataTypes.BOOLEAN,
         defaultValue: true
       },
+      sponsor: {
+        allowNull: true,
+        type: Sequelize.DataTypes.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
