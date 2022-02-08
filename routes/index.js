@@ -5,7 +5,7 @@ const gameRouter = require('./games.router')
 const gameDaysRouter = require('./gameDays.router')
 const schedulesRouter = require('./schedules.router')
 const authRouter = require('./auth.router')
-const countriesRouter = require('./country.router')
+const countriesRouter = require('./countries.router')
 const platformsRouter = require('./platforms.router')
 const gamesPlatformsRouter = require('./game-platform.router')
 

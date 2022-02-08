@@ -4,8 +4,8 @@ const { USER_TABLE } = require('./../models/user.model')
 const { GAME_DAY_TABLE } = require('./../models/gameDay.model')
 const { GAME_TABLE } = require('./../models/game.model')
 const { SCHEDULE_TABLE } = require('./../models/schedule.model')
-const { COUNTRY_TABLE } = require('./../models/country.model')
-const { PLATFORM_TABLE } = require('./../models/platform.model')
+const { COUNTRIES_TABLE } = require('./../models/countries.model')
+const { PLATFORM_TABLE } = require('./../models/platforms.model')
 const { GAME_PLATFORM_TABLE } = require('./../models/game-platform.model')
 
 module.exports = {
@@ -180,7 +180,7 @@ module.exports = {
       }
     })
 
-    await queryInterface.createTable(COUNTRY_TABLE, {
+    await queryInterface.createTable(COUNTRIES_TABLE, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -276,12 +276,12 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
+    await queryInterface.dropTable(GAME_PLATFORM_TABLE)
+    await queryInterface.dropTable(PLATFORM_TABLE)
+    await queryInterface.dropTable(COUNTRIES_TABLE)
     await queryInterface.dropTable(USER_TABLE)
     await queryInterface.dropTable(GAME_DAY_TABLE)
     await queryInterface.dropTable(GAME_TABLE)
     await queryInterface.dropTable(SCHEDULE_TABLE)
-    await queryInterface.dropTable(COUNTRY_TABLE)
-    await queryInterface.dropTable(PLATFORM_TABLE)
-    await queryInterface.dropTable(GAME_PLATFORM_TABLE)
   }
 }

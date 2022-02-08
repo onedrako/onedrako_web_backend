@@ -1,15 +1,18 @@
 const express = require('express')
 const router = express.Router()
 
-const validatorHandler = require('../utils/middlewares')
+const validatorHandler = require('./../middlewares/validator.handler')
 const { checkAdminRole } = require('../middlewares/checkRole.handler')
-const { getPlatformsSchema, createPlatformSchema } = require('./../schemas/platforms.schema')
+const { getPlatformSchema, createPlatformSchema } = require('./../schemas/platforms.schema')
 const { models } = require('../libs/sequelize')
 const { boom } = require('@hapi/boom')
 
+const PlatformService = require('./../services/platform.service')
+const service = new PlatformService()
+
 router.get('/', async (req, res, next) => {
   try {
-    const platforms = await models.Platform.findAll()
+    const platforms = await service.findAll()
     res.json(platforms)
   } catch (error) {
     next(error)
@@ -17,11 +20,11 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id',
-  getPlatformsSchema,
+  validatorHandler(getPlatformSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params
-      const platform = await models.Platform.findByPk(id)
+      const platform = await service.findOne(id)
       if (!platform) {
         throw boom.notFound('Platform not found in database')
       }

@@ -15,7 +15,7 @@ class PlatformService {
     return response
   }
 
-  async findByPk (id) {
+  async findOne (id) {
     const platform = await models.Platform.findByPk(id, {
       include: ['games']
     })
