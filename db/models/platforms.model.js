@@ -26,8 +26,8 @@ const PlatformSchema = {
 }
 
 class Platform extends Model {
-  static associate (models) {
-    this.belongsTo(models.Game, { as: 'game' })
+  static associate () {
+
   }
 
   static config (sequelize) {

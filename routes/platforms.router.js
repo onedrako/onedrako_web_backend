@@ -4,8 +4,8 @@ const router = express.Router()
 const validatorHandler = require('./../middlewares/validator.handler')
 const { checkAdminRole } = require('../middlewares/checkRole.handler')
 const { getPlatformSchema, createPlatformSchema } = require('./../schemas/platforms.schema')
-const { models } = require('../libs/sequelize')
 const { boom } = require('@hapi/boom')
+const passport = require('passport')
 
 const PlatformService = require('./../services/platform.service')
 const service = new PlatformService()
@@ -35,11 +35,12 @@ router.get('/:id',
   })
 
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   checkAdminRole,
   validatorHandler(createPlatformSchema, 'body'),
   async (req, res, next) => {
     try {
-      const platform = await models.Platform.create(req.body)
+      const platform = await service.create(req.body)
       res.status(201).json(platform)
     } catch (error) {
       next(error)

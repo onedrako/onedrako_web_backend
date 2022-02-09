@@ -27,10 +27,6 @@ const GameSchema = {
     type: DataTypes.BOOLEAN,
     defaultValue: true
   },
-  platforms: {
-    allowNull: false,
-    type: DataTypes.ARRAY(DataTypes.STRING)
-  },
   keywords: {
     allowNull: true,
     type: DataTypes.ARRAY(DataTypes.STRING)
@@ -52,7 +48,7 @@ class Game extends Model {
 
     this.belongsToMany(models.Platform,
       {
-        as: 'platform',
+        as: 'platforms',
         through: models.GamePlatform,
         foreignKey: 'gameId',
         otherKey: 'platformId'

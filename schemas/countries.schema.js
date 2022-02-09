@@ -2,7 +2,9 @@ const Joi = require('joi')
 
 const id = Joi.number().integer()
 const name = Joi.string()
-const img = Joi.string()
+const code = Joi.string()
+const flag = Joi.string()
+const scheduleId = Joi.number().integer()
 
 const getCountrySchema = Joi.object({
   id: id.required()
@@ -10,7 +12,9 @@ const getCountrySchema = Joi.object({
 
 const createCountrySchema = Joi.object({
   name: name.required(),
-  img: img.required()
+  code: code.required(),
+  flag: flag.required(),
+  scheduleId: scheduleId.required()
 })
 
 module.exports = { getCountrySchema, createCountrySchema }

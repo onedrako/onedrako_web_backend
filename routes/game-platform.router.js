@@ -6,6 +6,7 @@ const { checkAdminRole } = require('./../middlewares/checkRole.handler')
 const { boom } = require('@hapi/boom')
 const { createGamePlatformSchema } = require('./../schemas/game-platform.schema')
 const GamePlatformService = require('../services/game-platform.service')
+const passport = require('passport')
 
 const service = new GamePlatformService()
 
@@ -20,6 +21,7 @@ router.get('/',
   })
 
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   checkAdminRole,
   validatorHandler(createGamePlatformSchema, 'body'),
   async (req, res, next) => {

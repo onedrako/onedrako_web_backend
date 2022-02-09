@@ -3,7 +3,7 @@ const { SCHEDULE_TABLE } = require('./schedule.model')
 
 const COUNTRIES_TABLE = 'countries'
 
-const countrySchema = {
+const CountrySchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -58,4 +58,4 @@ class Country extends Model {
   }
 }
 
-module.exports = { Country, countrySchema, COUNTRIES_TABLE }
+module.exports = { Country, CountrySchema, COUNTRIES_TABLE }

@@ -3,8 +3,8 @@ const router = express.Router()
 
 const validatorHandler = require('./../middlewares/validator.handler')
 const { checkAdminRole } = require('./../middlewares/checkRole.handler')
-const { boom } = require('@hapi/boom')
 const { createCountrySchema, getCountrySchema } = require('./../schemas/countries.schema')
+const passport = require('passport')
 
 const CountryService = require('./../services/country.service')
 const service = new CountryService()
@@ -15,7 +15,7 @@ router.get('/',
       const countries = await service.find()
       res.json(countries)
     } catch (error) {
-      throw boom.notFound('Countries not found in database')
+      next(error)
     }
   }
 )
@@ -28,11 +28,12 @@ router.get('/:id',
       const country = await service.findOne(id)
       res.json(country)
     } catch (error) {
-      throw boom.notFound('Country not found in database')
+      next(error)
     }
   })
 
 router.post('/',
+  passport.authenticate('jwt', { session: false }),
   checkAdminRole,
   validatorHandler(createCountrySchema, 'body'),
   async (req, res, next) => {
