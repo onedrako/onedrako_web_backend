@@ -71,7 +71,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.STRING
       },
-      image: {
+      largeImage: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING
+      },
+      boxImage: {
         allowNull: false,
         type: Sequelize.DataTypes.STRING
       },

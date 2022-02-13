@@ -3,14 +3,16 @@ const Joi = require('joi')
 const id = Joi.number().integer()
 const name = Joi.string()
 const description = Joi.string()
-const image = Joi.string()
+const largeImage = Joi.string()
+const boxImage = Joi.string()
 const available = Joi.boolean()
 const keywords = Joi.array().items(Joi.string())
 
 const createGameSchema = Joi.object({
   name: name.required(),
   description: description.required(),
-  image: image.required(),
+  largeImage: largeImage.required(),
+  boxImage: boxImage.required(),
   available: available.required().default(true),
   keywords: keywords.default([])
 })
@@ -18,7 +20,8 @@ const createGameSchema = Joi.object({
 const updateGameSchema = Joi.object({
   name: name,
   description: description,
-  image: image,
+  largeImage: largeImage,
+  boxImage: boxImage,
   available: available,
   keywords: keywords
 })

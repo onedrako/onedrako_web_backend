@@ -18,7 +18,11 @@ const GameSchema = {
     allowNull: false,
     type: DataTypes.STRING
   },
-  image: {
+  largeImage: {
+    allowNull: false,
+    type: DataTypes.STRING
+  },
+  boxImage: {
     allowNull: false,
     type: DataTypes.STRING
   },
