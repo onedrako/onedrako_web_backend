@@ -11,7 +11,7 @@ const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('
 
 app.use(express.json())
 
-const whitelist = config.whitelist
+const whitelist = ['http://localhost:3000', 'http://localhost:3005', 'https://onedrako.vercel.app/chill']
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
