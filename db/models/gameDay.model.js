@@ -19,7 +19,8 @@ const GameDaySchema = {
   shortName: {
     allowNull: false,
     type: DataTypes.STRING,
-    unique: true
+    unique: true,
+    defaultValue: 'normal'
   },
   date: {
     allowNull: true,
@@ -55,6 +56,7 @@ const GameDaySchema = {
     allowNull: true,
     type: DataTypes.INTEGER,
     field: 'schedule_id',
+    defaultValue: 1,
     references: {
       model: SCHEDULE_TABLE,
       key: 'id'

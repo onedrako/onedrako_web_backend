@@ -176,6 +176,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DataTypes.INTEGER,
         field: 'schedule_id',
+        defaultValue: 1,
         references: {
           model: SCHEDULE_TABLE,
           key: 'id'
