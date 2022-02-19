@@ -4,7 +4,7 @@ const { Op } = require('sequelize')
 
 class GameService {
   async find () {
-    const response = await models.Game.findAll()
+    const response = await models.Game.findAll({ include: ['gameDays', 'platforms'] })
     if (!response) {
       throw boom.notFound('There are not games created in the database')
     }

@@ -13,4 +13,8 @@ const updateGamePlatformSchema = Joi.object({
   platformId: platformId
 })
 
-module.exports = { createGamePlatformSchema, updateGamePlatformSchema }
+const deleteGamePlatformSchema = Joi.object({
+  id: gameId.required()
+})
+
+module.exports = { createGamePlatformSchema, updateGamePlatformSchema, deleteGamePlatformSchema }

@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const passport = require('passport')
 const routerApi = require('./routes')
+const { config } = require('./config/config')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -10,7 +11,7 @@ const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('
 
 app.use(express.json())
 
-const whitelist = ['http://localhost:3000', 'http://localhost:3001']
+const whitelist = config.whitelist
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {

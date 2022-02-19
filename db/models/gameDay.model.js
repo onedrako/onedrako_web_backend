@@ -22,7 +22,7 @@ const GameDaySchema = {
     unique: true
   },
   date: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.DATE
   },
   state: {

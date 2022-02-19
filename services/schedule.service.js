@@ -18,7 +18,7 @@ class ScheduleService {
           [Op.iLike]: `%${name}%`
         }
       },
-      include: ['gameDays']
+      include: ['countries', 'gameDays']
     })
     if (!schedule) {
       throw boom.notFound('Schedule not found')

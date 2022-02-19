@@ -17,7 +17,9 @@ const GamePlatformSchema = {
     references: {
       model: GAME_TABLE,
       key: 'id'
-    }
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   platformId: {
     allowNull: false,
@@ -25,7 +27,9 @@ const GamePlatformSchema = {
     references: {
       model: PLATFORM_TABLE,
       key: 'id'
-    }
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   createdAt: {
     allowNull: false,

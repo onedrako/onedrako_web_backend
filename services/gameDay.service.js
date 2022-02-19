@@ -4,7 +4,18 @@ const { Op } = require('sequelize')
 
 class GameDayService {
   async find () {
-    const response = await models.GameDay.findAll()
+    const response = await models.GameDay.findAll({
+      include: [
+        'schedule',
+        'game',
+        {
+          association: 'game',
+          include: [{
+            association: 'platforms'
+          }]
+        }
+      ]
+    })
     if (!response) {
       throw boom.notFound('There are not game days created in the database')
     }
@@ -18,7 +29,16 @@ class GameDayService {
           [Op.iLike]: `%${name}%`
         }
       },
-      include: ['game', 'schedule']
+      include: [
+        'game',
+        'schedule',
+        {
+          association: 'game',
+          include: [{
+            association: 'platforms'
+          }]
+        }
+      ]
     })
 
     if (!gameDay) {
@@ -41,7 +61,7 @@ class GameDayService {
   }
 
   async update (id, changes) {
-    const model = await models.GameDay.findBy(id)
+    const model = await models.GameDay.findByPk(id)
     const rta = await model.update(changes)
     return rta
   }

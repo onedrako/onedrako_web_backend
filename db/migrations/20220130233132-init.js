@@ -69,7 +69,7 @@ module.exports = {
       },
       description: {
         allowNull: false,
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.TEXT
       },
       largeImage: {
         allowNull: false,
@@ -136,14 +136,15 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         unique: true
       },
-      shortName: {
-        allowNull: false,
-        type: Sequelize.DataTypes.STRING,
-        unique: true
-      },
       date: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE
+      },
+      shortName: {
+        allowNull: false,
+        type: Sequelize.DataTypes.STRING,
+        unique: true,
+        defaultValue: 'normal'
       },
       state: {
         allowNull: false,
@@ -260,7 +261,9 @@ module.exports = {
         references: {
           model: GAME_TABLE,
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       platformId: {
         allowNull: false,
@@ -268,7 +271,9 @@ module.exports = {
         references: {
           model: PLATFORM_TABLE,
           key: 'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

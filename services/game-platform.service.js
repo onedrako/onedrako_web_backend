@@ -14,6 +14,15 @@ class GamePlatformService {
     }
     return gamePlatforms
   }
+
+  async deleteById (id) {
+    const gamePlatform = await models.GamePlatform.findByPk(id)
+    if (!gamePlatform) {
+      throw boom.notFound(`Game platform with id ${id} not found`)
+    }
+    await gamePlatform.destroy()
+    return gamePlatform
+  }
 }
 
 module.exports = GamePlatformService

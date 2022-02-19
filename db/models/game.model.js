@@ -16,7 +16,7 @@ const GameSchema = {
   },
   description: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.TEXT
   },
   largeImage: {
     allowNull: false,
