@@ -17,4 +17,11 @@ const createCountrySchema = Joi.object({
   scheduleId: scheduleId.required()
 })
 
-module.exports = { getCountrySchema, createCountrySchema }
+const updateCountrySchema = Joi.object({
+  name: name,
+  code: code,
+  flag: flag,
+  scheduleId: scheduleId
+})
+
+module.exports = { getCountrySchema, createCountrySchema, updateCountrySchema }

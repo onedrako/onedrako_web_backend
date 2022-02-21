@@ -24,6 +24,15 @@ class CountryService {
     }
     return country
   }
+
+  async updateById (id, data) {
+    const country = await models.Country.findByPk(id)
+    if (!country) {
+      throw boom.notFound('Country not found in database')
+    }
+    const response = await country.update(data)
+    return response
+  }
 }
 
 module.exports = CountryService
